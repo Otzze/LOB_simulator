@@ -1,8 +1,8 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-cast
 TARGET = simulator
-SRCS = order.cpp test.cpp
-OBJS = $(SRCS:.cpp=.o)
+SRCS = order.cc test.cc
+OBJS = $(SRCS:.cc=.o)
 
 all: $(TARGET)
 
