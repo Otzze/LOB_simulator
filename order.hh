@@ -4,18 +4,14 @@
 #include <string>
 #include <ctime>
 
-class Order {
-    public:
-        enum OrderType {
-            BUY,
-            SELL
-        };
+#include "order_type.hh"
 
+class Order {
     private:
         const unsigned int orderId;
         const unsigned int customerId;
-        const unsigned int amount;
-        const unsigned int pricePerUnit;
+        const unsigned float amount;
+        const unsigned float pricePerUnit;
         const OrderType type;
         const std::string instrument;
         time_t timestamp;
