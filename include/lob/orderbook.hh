@@ -6,8 +6,8 @@
 #include <unordered_map>
 #include <list>
 
-#include "order.hh"
-#include "order_type.hh"
+#include "lob/order.hh"
+#include "lob/order_type.hh"
 
 using OrderList = std::list<Order>;
 

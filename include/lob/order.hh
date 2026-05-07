@@ -4,7 +4,7 @@
 #include <string>
 #include <ctime>
 
-#include "order_type.hh"
+#include "lob/order_type.hh"
 
 class Order {
     private:
