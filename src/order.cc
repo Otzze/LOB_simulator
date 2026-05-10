@@ -1,7 +1,7 @@
 #include "lob/order.hh"
 #include <ctime>
 
-Order::Order(unsigned int orderId, unsigned int customerId, unsigned int amount, unsigned int pricePerUnit, OrderType type, const std::string& instrument)
+Order::Order(unsigned int orderId, unsigned int customerId, float amount, float pricePerUnit, OrderType type, const std::string& instrument)
     : orderId(orderId), customerId(customerId), amount(amount), pricePerUnit(pricePerUnit), type(type), instrument(instrument){
         timestamp = time(&timestamp);
     };
@@ -14,15 +14,15 @@ unsigned int Order::getCustomerId() const {
     return customerId;
 }
 
-unsigned int Order::getAmount() const {
+float Order::getAmount() const {
     return amount;
 }
 
-unsigned int Order::getPricePerUnit() const {
+float Order::getPricePerUnit() const {
     return pricePerUnit;
 }
 
-Order::OrderType Order::getType() const {
+OrderType Order::getType() const {
     return type;
 }
 

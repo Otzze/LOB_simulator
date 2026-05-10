@@ -1,28 +1,40 @@
 #include "lob/orderbook.hh"
 
 
-const std::string& Orderbook::GetInstrumentName() const
+const std::string& OrderBook::GetInstrumentName() const
 {
     return this->instrument_;
 }
 
 void OrderBook::InsertOrder(const Order& order)
 {
-    auto& book = (order.type == OrderType::BUY) ? this->bids_ : this->asks_;
+    if (order.getType() == OrderType::BUY)
+    {
+        auto levelIt = this->bids_.try_emplace(order.getPricePerUnit()).first;
+        levelIt->second.push_back(order);
+        auto orderIt = std::prev(levelIt->second.end());
 
-    auto LevelIt = book.try_emplace(order.price).first;
-    LevelIt->second.push_back(order);
+        orderMap.emplace(order.getOrderId(), OrderHandle{
+            order.getType(),
+            levelIt,
+            orderIt
+        });
+    }
+    else
+    {
+        auto levelIt = this->asks_.try_emplace(order.getPricePerUnit()).first;
+        levelIt->second.push_back(order);
+        auto orderIt = std::prev(levelIt->second.end());
 
-    auto orderIt = std::prev(levelIt->second.end());
-
-    orderMap[order.id] = {
-        order.side,
-        levelIt,
-        orderIt
-    };
+        orderMap.emplace(order.getOrderId(), OrderHandle{
+            order.getType(),
+            levelIt,
+            orderIt
+        });
+    }
 }
 
-const bool OrderBook::DeleteOrder(const unsigned int orderId);
+const bool OrderBook::DeleteOrder(const unsigned int orderId)
 {
     //fetch the orderMap iterator to get the OrderHandle
     auto orderHandleIt = this->orderMap.find(orderId);
@@ -40,8 +52,11 @@ const bool OrderBook::DeleteOrder(const unsigned int orderId);
     if (level.empty())
     {
         if (orderHandleIt->second.side == OrderType::BUY)
-            this->bids_.erase(orderHandleIt.second.levelIt);
+            this->bids_.erase(orderHandleIt->second.levelIt);
         else
-            this->asks_.erase(orderHandleIt.second.levelIt);
+            this->asks_.erase(orderHandleIt->second.levelIt);
     }
+
+    this->orderMap.erase(orderHandleIt);
+    return true;
 }

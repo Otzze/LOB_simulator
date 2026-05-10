@@ -34,13 +34,13 @@ class OrderBook {
     
     private:
         //Instrument name for OB
-        std::string& instrument_;
+        std::string instrument_;
 
         //Maps of price levels -> doubly linked lists for fast modification
         //These lists are used as FIFO queues
-        std::map<const float, OrderList, std::<greater<int>> bids_;
+        std::map<const float, OrderList, std::greater<float>> bids_;
         std::map<const float, OrderList> asks_;
 
         //Map of OrderId -> OrderHandle for lookup
-        std::unordered_map<const unsigned int, OrderHandle> orderMap;
+        std::unordered_map<unsigned int, OrderHandle> orderMap;
 };

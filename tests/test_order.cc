@@ -1,5 +1,9 @@
 #include <gtest/gtest.h>
 
-TEST(HelloTest, BasicAssertions) {
-    EXPECT_STRNE("hello", "world");
+#include "lob/order_type.hh"
+#include "lob/order.hh"
+
+TEST(CoreClasses, Order) {
+    Order o = Order{1, 1, 10, 30, OrderType::BUY, "SPY"};
+    EXPECT_EQ(o.getOrderId(), 1);
 }

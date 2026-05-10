@@ -9,7 +9,7 @@
 
 class MatchingEngine{
     public:
-        MatchineEngine();
+        MatchingEngine();
         const char& PlaceOrder(const Order& order);
         bool CancelOrder(const char& orderId);
 
