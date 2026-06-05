@@ -1,6 +1,7 @@
 add_executable(
     lob_tests
     test_order.cc
+    test_orderbook.cc
 )
 
 target_link_libraries(
