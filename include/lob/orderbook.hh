@@ -10,6 +10,8 @@
 #include "lob/order_type.hh"
 
 using OrderList = std::list<Order>;
+using BidBook = std::map<const float, OrderList, std::greater<float>>;
+using AskBook = std::map<const float, OrderList>;
 
 class OrderBook {
     public:
@@ -31,6 +33,9 @@ class OrderBook {
 
         void InsertOrder(const Order& order);
         const bool DeleteOrder(const unsigned int orderId);
+
+        const BidBook& GetBids() const;
+        const AskBook& GetAsks() const;
     
     private:
         //Instrument name for OB
@@ -38,8 +43,8 @@ class OrderBook {
 
         //Maps of price levels -> doubly linked lists for fast modification
         //These lists are used as FIFO queues
-        std::map<const float, OrderList, std::greater<float>> bids_;
-        std::map<const float, OrderList> asks_;
+        BidBook bids_;
+        AskBook asks_;
 
         //Map of OrderId -> OrderHandle for lookup
         std::unordered_map<unsigned int, OrderHandle> orderMap;

@@ -13,4 +13,5 @@ TEST(CoreClasses, OrderBookAdd) {
     OrderBook OB = OrderBook("SPY");
     Order o = Order{1, 1, 10, 30, OrderType::BUY, "SPY"};
     OB.InsertOrder(o);
+    EXPECT_EQ(OB.GetBids, )
 }

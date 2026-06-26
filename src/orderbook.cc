@@ -60,3 +60,13 @@ const bool OrderBook::DeleteOrder(const unsigned int orderId)
     this->orderMap.erase(orderHandleIt);
     return true;
 }
+
+const BidBook& OrderBook::GetBids() const
+{
+    return this->bids_;
+}
+
+const AskBook& OrderBook::GetAsks() const
+{
+    return this->asks_;
+}
